@@ -1,0 +1,29 @@
+version: '3'
+
+networks:
+  main_network:
+    driver: bridge
+
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    depends_on:
+      - host
+    networks:
+      - main_network
+  host:
+    build:
+      context: ./host
+      dockerfile: ./Dockerfile
+    ports:
+      - "8081:8081"
+    expose:
+      - "8081"
+    networks:
+      - main_network
